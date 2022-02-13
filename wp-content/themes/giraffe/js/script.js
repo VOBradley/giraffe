@@ -19,10 +19,10 @@ fetchPosition('http://giraffe/wp-content/themes/giraffe/Base/second-dishes.json'
 
 
 function addPositions (first, second, three, four) {
-    createPosition(first);
-    createPosition(second);
-    createPosition(three);
-    createPosition(four);
+    // createPosition(first);
+    // createPosition(second);
+    // createPosition(three);
+    // createPosition(four);
 
 // go to DOM objects
 const body = document.querySelector('body')

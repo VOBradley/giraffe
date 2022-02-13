@@ -14,22 +14,16 @@
 
 get_header();
 ?>
-
-<div class="loader" style="width: 100vw; height: 100vh; position: fixed; background-color: white; z-index: 500; display: none;">
-        <div id="loader-logo"></div>
-        <p>Загружаем...</p>
-    </div>
-    <header>
-        <img class="logo" src="<?php echo get_template_directory_uri() . '/img/logo.png' ?>" alt="logo">
-    </header>
     <nav>
-        <a class="" href="#breakfasts">Завтраки</a>
-        <a href="#salads">Салаты</a>
-        <a href="#main-dishes">Первые<br>блюда</a>
-        <a href="#second-dishes">Вторые<br>блюда</a>
-        <a href="#pizza">Пицца</a>
-        <a href="#burgers">Бургеры</a>
-        <a href="#snacks">Закуски</a>
+        <?php
+            $categories = get_categories(array(
+                'orderby' => 'name',
+                'order' => 'ASC'
+            ));
+            foreach( $categories as $category ){
+                echo '<a href="#' . $category->slug . '" title="' . $category->slug . '" ' . '>' . $category->name.'</a>';
+            }
+        ?>
     </nav>
 
     <div class="preCheckBg" style="display: none;">
@@ -49,22 +43,48 @@ get_header();
             <div id="positionCounter">0</div>
             <i class='bx bxs-dish'></i>
         </div>
-        
+        <?php
+$categories = get_categories(array(
+	'orderby' => 'name',
+	'order' => 'ASC',
+));
+
+foreach( $categories as $category ){
+    echo '<section id="' . $category->slug . '" class="section" >';
+	echo "<h2>" . $category->name . "</h2>";
+    $catID = array(
+        'cat' => $category->term_id
+    );
+    if ( have_posts() ) : // если имеются записи в блоге.
+        query_posts($catID);   // указываем ID рубрик, которые необходимо вывести.
+        while (have_posts()) : the_post();  // запускаем цикл обхода материалов блога
+        ?>
+        <div class="gridBlock">
+         <p class="price"><?php the_field('positionPrice') ?></p>
+            <i class="bx bx-dish"></i>
+            <div class="position-name">
+                <p class="tooMuch"><?php echo the_field('positionName') ?></p>
+            </div>
+            <div class="block-bg"></div>
+        <img class="menu-image" src="<?php echo the_post_thumbnail( 'medium' ); ?>">
+        </div>
+        <?php
+        endwhile;  // завершаем цикл.
+        endif;
+        /* Сбрасываем настройки цикла. Если ниже по коду будет идти еще один цикл, чтобы не было сбоя. */
+        wp_reset_query();
+    echo "</section>";
+}
+?>
         <section id='breakfasts' class="section" >
             <h2>Завтраки</h2>
+            
+            <?php
+                                   
+            ?>
+            
+            </div>
         </section>
-        <section id="salads" class="section">
-            <h2>Салаты</h2>
-        </section>
-        <section id="main-dishes"  class="section">
-            <h2>Первые блюда</h2>
-        </section>
-        <section id="second-dishes"  class="section">
-            <h2>Вторые блюда</h2>
-        </section>
-        <section id="pizza"  class="section"></section>
-        <section id="burders"  class="section"></section>
-        <section id="snacks"  class="section"></section>
     </main>     
 </div>
 <div class="help-option">
