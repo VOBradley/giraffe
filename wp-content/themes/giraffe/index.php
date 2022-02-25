@@ -44,10 +44,10 @@ get_header();
             <i class='bx bxs-dish'></i>
         </div>
         <?php
-$categories = get_categories(array(
-	'orderby' => 'name',
-	'order' => 'ASC',
-));
+        $categories = get_categories(array(
+            'orderby' => 'name',
+            'order' => 'ASC',
+        ));
 
 foreach( $categories as $category ){
     echo '<section id="' . $category->slug . '" class="section" >';
@@ -76,15 +76,6 @@ foreach( $categories as $category ){
     echo "</section>";
 }
 ?>
-        <section id='breakfasts' class="section" >
-            <h2>Завтраки</h2>
-            
-            <?php
-                                   
-            ?>
-            
-            </div>
-        </section>
     </main>     
 </div>
 <div class="help-option">
